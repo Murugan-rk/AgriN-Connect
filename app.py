@@ -1,5 +1,5 @@
 import streamlit as st
-import google.generativeai as genai
+from google import genai
 from PIL import Image
 import os
 from dotenv import load_dotenv
@@ -13,9 +13,6 @@ st.set_page_config(page_title="AgriN - AI Agro Intelligence", layout="wide", pag
 api_key = os.getenv("GEMINI_API_KEY")
 if not api_key:
     api_key = st.sidebar.text_input("Enter Gemini API Key:", type="password")
-
-if api_key:
-    genai.configure(api_key=api_key)
 
 st.title("🌱 AgriN: Regenerative Agro-Intelligence Platform")
 st.caption("Empowering Smallholder Farmers with Multimodal AI & Soil Health Analytics")
@@ -34,22 +31,28 @@ with tab1:
         st.image(image, caption="Uploaded Crop Leaf", width=300)
         
         if st.button("Analyze Crop Health"):
-            with st.spinner("Analyzing leaf with Gemini AI..."):
-                try:
-                    model = genai.GenerativeModel("gemini-1.5-flash")
-                    prompt = f"""
-                    You are an agricultural expert. Analyze this crop image.
-                    Respond in {lang} language:
-                    1. Crop Name & Condition (Healthy or Diseased)
-                    2. Disease Name & Severity
-                    3. Organic / Bio-fertilizer Remedy
-                    4. Regenerative farming advice to prevent future recurrence
-                    """
-                    response = model.generate_content([prompt, image])
-                    st.success("Analysis Complete!")
-                    st.markdown(response.text)
-                except Exception as e:
-                    st.error(f"Error: {e}")
+            if not api_key:
+                st.warning("Please enter your Gemini API Key in the sidebar!")
+            else:
+                with st.spinner("Analyzing leaf with Gemini AI..."):
+                    try:
+                        client = genai.Client(api_key=api_key)
+                        prompt = f"""
+                        You are an agricultural expert. Analyze this crop image.
+                        Respond strictly in {lang} language:
+                        1. Crop Name & Condition (Healthy or Diseased)
+                        2. Disease Name & Severity
+                        3. Organic / Bio-fertilizer Remedy
+                        4. Regenerative farming advice to prevent future recurrence
+                        """
+                        response = client.models.generate_content(
+                            model="gemini-3.6-flash",
+                            contents=[prompt, image]
+                        )
+                        st.success("Analysis Complete!")
+                        st.markdown(response.text)
+                    except Exception as e:
+                        st.error(f"Error: {e}")
 
 # TAB 2: Soil & Crop Recommendation
 with tab2:
@@ -65,19 +68,25 @@ with tab2:
     soil_type = st.selectbox("Soil Type", ["Alluvial", "Black Soil", "Red Soil", "Clayey", "Sandy Loam"])
     
     if st.button("Generate Crop Recommendation"):
-        with st.spinner("Calculating sustainable crop rotation..."):
-            try:
-                model = genai.GenerativeModel("gemini-1.5-flash")
-                soil_prompt = f"""
-                Provide regenerative crop rotation advice for a farmer with:
-                - Soil Type: {soil_type}
-                - NPK Values: N={nitrogen}, P={phosphorus}, K={potassium}
-                Suggest suitable regenerative crops, cover cropping methods, and natural nitrogen-fixing plants.
-                """
-                res = model.generate_content(soil_prompt)
-                st.markdown(res.text)
-            except Exception as e:
-                st.error(f"Error: {e}")
+        if not api_key:
+            st.warning("Please enter your Gemini API Key in the sidebar!")
+        else:
+            with st.spinner("Calculating sustainable crop rotation..."):
+                try:
+                    client = genai.Client(api_key=api_key)
+                    soil_prompt = f"""
+                    Provide regenerative crop rotation advice for a farmer with:
+                    - Soil Type: {soil_type}
+                    - NPK Values: N={nitrogen}, P={phosphorus}, K={potassium}
+                    Suggest suitable regenerative crops, cover cropping methods, and natural nitrogen-fixing plants.
+                    """
+                    res = client.models.generate_content(
+                        model="gemini-3.6-flash",
+                        contents=soil_prompt
+                    )
+                    st.markdown(res.text)
+                except Exception as e:
+                    st.error(f"Error: {e}")
 
 # TAB 3: BRICS Collaboration Mock Hub
 with tab3:
