@@ -1,0 +1,11 @@
+id,country,crop,pest_or_disease,symptoms,risk_level,season,recommended_action
+1,India,Rice,Stem Borer,"Dead hearts and white ears",High,Monsoon,"Regular field monitoring and integrated pest management"
+2,India,Cotton,Bollworm,"Damaged buds and bolls",High,"Flowering Season","Field scouting and recommended pest management"
+3,Brazil,Soybean,Rust Disease,"Yellow or brown lesions on leaves",High,"Wet Season","Regular field monitoring and recommended disease management"
+4,Brazil,Coffee,Coffee Leaf Rust,"Yellow-orange spots on leaves",Medium,"Rainy Season","Monitor leaves and follow recommended disease management"
+5,South Africa,Maize,Fall Armyworm,"Leaf feeding damage",High,"Warm Season","Early scouting and integrated pest management"
+6,South Africa,Wheat,Aphids,"Curling and yellowing leaves",Medium,"Spring","Regular field scouting and integrated pest management"
+7,China,Rice,Planthopper,"Yellowing and drying leaves",Medium,"Warm Season","Regular field monitoring"
+8,China,Cotton,Aphids,"Leaf curling and yellowing",Medium,"Summer","Monitor crop and use integrated pest management"
+9,Russia,Wheat,Wheat Aphid,"Leaf yellowing and reduced growth",Medium,Spring,"Field scouting and integrated management"
+10,Russia,Potato,Colorado Potato Beetle,"Leaf damage and defoliation",High,Summer,"Regular scouting and recommended pest management"

@@ -1,0 +1,8 @@
+soil_type,pH,nitrogen,phosphorus,potassium,suitable_crops
+Loamy,6.5,Medium,Medium,Medium,"Rice,Wheat"
+Clay,6.5,High,Medium,High,"Rice"
+Sandy,6.0,Low,Low,Low,"Groundnut"
+Black Soil,7.2,High,Medium,High,"Cotton"
+Red Soil,6.2,Low,Medium,Medium,"Groundnut,Millets"
+Alluvial Soil,7.0,Medium,High,Medium,"Rice,Wheat,Sugarcane"
+Laterite Soil,5.8,Low,Medium,Low,"Cashew,Tea"
