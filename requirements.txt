@@ -1,6 +1,9 @@
 streamlit
 google-generativeai
+google-genai
 pillow
 requests
 python-dotenv
+pandas
 gTTS==2.5.4
+gTTS>=2.5.0
